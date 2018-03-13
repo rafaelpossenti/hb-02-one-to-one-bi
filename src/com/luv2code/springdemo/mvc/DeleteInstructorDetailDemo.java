@@ -8,7 +8,7 @@ import com.luv2code.springdemo.entity.Instructor;
 import com.luv2code.springdemo.entity.InstructorDetail;
 import com.luv2code.springdemo.entity.Student;
 
-public class DeleteDemo {
+public class DeleteInstructorDetailDemo {
 	public static void main(String Args[]) {
 		
 		// create session factory
@@ -25,19 +25,23 @@ public class DeleteDemo {
 			// start a transaction 
 			session.beginTransaction();
 			
+			//get the instructor detail object
+			int theId = 3; 
+			InstructorDetail tempInstructorDetail = session.get(InstructorDetail.class, theId);
 			
-			int theId = 1; 
+			tempInstructorDetail.getInstructor().setInstructorDetail(null);;
 			
-			Instructor tempInstructor = session.get(Instructor.class, theId);
-			if(tempInstructor != null) { 
-				//Also delete associated details object
-				session.delete(tempInstructor);
-			}	
+			//delete the instructor and the detail instructor
+			session.delete(tempInstructorDetail);
+			
+			
 			
 			//commit transaction
 			session.getTransaction().commit();
-			
+		}catch(Exception ex){
+			ex.printStackTrace();
 		}finally {
+			session.close();
 			factory.close();
 		}
 	}	
