@@ -29,6 +29,7 @@ public class DeleteInstructorDetailDemo {
 			int theId = 3; 
 			InstructorDetail tempInstructorDetail = session.get(InstructorDetail.class, theId);
 			
+			//avoid an exception
 			tempInstructorDetail.getInstructor().setInstructorDetail(null);;
 			
 			//delete the instructor and the detail instructor
